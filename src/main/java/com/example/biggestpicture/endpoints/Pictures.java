@@ -2,8 +2,8 @@ package com.example.biggestpicture.endpoints;
 
 import com.example.biggestpicture.entity.Photo;
 import com.example.biggestpicture.entity.Photos;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +22,9 @@ public class Pictures {
     String apiKey = "DEMO_KEY";
 
 
+    @Cacheable("LargestPictures")
     @GetMapping("/pictures/{sol}/largest")
-    public ResponseEntity<String> getLargestPicture (@PathVariable String sol, RequestEntity<String> request) {
+    public ResponseEntity<String> getLargestPicture (@PathVariable String sol) {
         System.out.println("Hello: " + sol);
 
         String url = UriComponentsBuilder.fromHttpUrl(apiBaseUrl)
